@@ -4,7 +4,7 @@ import { IItem } from "../../domain/IItem";
 // import { IOrder } from "../../domain/IOrder";
 import { BaseService } from "../../services/base-service";
 import { EPageStatus } from "../../types/EPageStatus";
-import BlockDisplay from "./BlockDisplay"
+import BlockDisplay from "./AddToCart"
 
 
 // const BlockDisplay = (props: { item: IItem }) => (
@@ -32,7 +32,6 @@ import BlockDisplay from "./BlockDisplay"
 const PartsIndex = () => {
     const [item, setItems] = useState([] as IItem[]);
     const [pageStatus, setPageStatus] = useState({ pageStatus: EPageStatus.Loading, statusCode: -1 });
-    const [cart, setCart] = useState([] as IItem[]);
 
     const loadData = async () => {
         let items = await BaseService.getAll<IItem>('/item');
@@ -46,11 +45,6 @@ const PartsIndex = () => {
         }
     }
 
-    const AddToCart = (item: IItem) => {
-        let cartItems = [...cart];
-        cartItems = [...cartItems, item];
-        setCart(cartItems);
-    }
 
 
 
@@ -59,7 +53,7 @@ const PartsIndex = () => {
     }, [])
     return (
         <>
-            <h1>Rent Now</h1>
+            <h1>Buy Now</h1>
 
             <div className="container">
                 <div className="row">
@@ -68,22 +62,6 @@ const PartsIndex = () => {
                             <BlockDisplay item={item} key={item.id} />
                         )
                         ]}
-                    </div>
-                    <div className="col-sm">
-                        <div className="card mt-5">
-                            <div className="card-horizontal">
-
-                                <div className="card-body">
-                                    {/* {item.map(item =>
-                                        <button type="button" className="btn btn-primary" onClick={() => AddToCart(item)} key={item.id}  >
-                                            Add To Cart
-                                        </button>
-                                    )} */}
-
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>

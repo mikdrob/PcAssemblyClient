@@ -1,21 +1,16 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import { IItem } from "../../domain/IItem";
 
 
 const BlockDisplay = (props: { item: IItem }) => {
 
-    const [cart, setCart] = useState([] as IItem[]);
     const appState = useContext(AppContext);
 
     const AddToCart = (itemToAdd: IItem) => {
-        // let cartItems = [...cart];
-        // cartItems = [...cartItems, itemToAdd];
-        // setCart(cartItems);
         let cartItems = [...appState.items];
         cartItems = [...cartItems, itemToAdd];
         appState.setItemToCart(cartItems);
-        // console.log(appState.items);
 
     }
     return (
@@ -33,7 +28,6 @@ const BlockDisplay = (props: { item: IItem }) => {
                     <button type="button" className="btn btn-primary" onClick={() => AddToCart(props.item)} >
                         Add To Cart
                     </button>
-                    <p>{appState.items.length}</p>
                 </div>
             </div>
         </div>

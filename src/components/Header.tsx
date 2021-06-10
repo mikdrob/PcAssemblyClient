@@ -20,7 +20,7 @@ const Header = () => {
                                 <NavLink className="nav-link text-dark" to="/parts">Parts</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link text-dark" to="/parts">Cart {appState.items.length}</NavLink>
+                                <NavLink className="nav-link text-dark" to="/cart">Cart {appState.items.length}</NavLink>
                             </li>
                         </ul>
 

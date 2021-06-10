@@ -3,13 +3,17 @@ import { IItem } from "../domain/IItem";
 // import { IItem } from "../domain/IItem";
 
 export interface ICartState {
-    items: IItem[]
+    items: IItem[],
+    orderId: string | null,
     setItemToCart: (items: IItem[]) => void;
+    setOrderId:(orderId: string | null) => void;
 }
 
 export const initialCartState : ICartState = {
+    orderId: null,
     items: [],
-    setItemToCart: (): void => {}
+    setItemToCart: (): void => {},
+    setOrderId:(): void => {}
 }
 
 export const AppContext = React.createContext<ICartState>(initialCartState);
