@@ -22,10 +22,11 @@ const Header = () => {
                             <li className="nav-item">
                                 <NavLink className="nav-link text-dark" to="/cart">Cart {appState.items.length}</NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link text-dark" to="/map">Map</NavLink>
+                            </li>
                         </ul>
-
-
-                    </div>
+                  </div>
                 </div>
             </nav>
         </header>
