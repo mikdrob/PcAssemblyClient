@@ -13,7 +13,7 @@ export const initialCartState : ICartState = {
     orderId: null,
     items: [],
     setItemToCart: (): void => {},
-    setOrderId:(): void => {}
+    setOrderId:(): void => {},
 }
 
 export const AppContext = React.createContext<ICartState>(initialCartState);

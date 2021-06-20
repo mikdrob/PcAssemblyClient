@@ -11,6 +11,7 @@ const BlockDisplay = (props: { item: IItem }) => {
         let cartItems = [...appState.items];
         cartItems = [...cartItems, itemToAdd];
         appState.setItemToCart(cartItems);
+        itemToAdd.itemAddedToCart = true;
 
     }
     return (
@@ -25,7 +26,7 @@ const BlockDisplay = (props: { item: IItem }) => {
                         style: "currency",
                         currency: "EUR"
                     }).format(props.item.price)}</p>
-                    <button type="button" className="btn btn-primary" onClick={() => AddToCart(props.item)} >
+                    <button type="button" disabled={props.item.itemAddedToCart} className="btn btn-primary" onClick={() => AddToCart(props.item)} >
                         Add To Cart
                     </button>
                 </div>
