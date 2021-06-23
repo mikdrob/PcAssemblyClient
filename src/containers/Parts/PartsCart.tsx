@@ -87,7 +87,7 @@ const PartsCart = () => {
                                             <input value={buyerData.firstName} onChange={e => setBuyerData({ ...buyerData, firstName: e.target.value })} className="form-control" type="text" id="Input_FirstName" name="Input.FirstName" placeholder="" />
                                         </div>
                                         <div className="form-group">
-                                            <label htmlFor="Input_LastName">First Name</label>
+                                            <label htmlFor="Input_LastName">Last Name</label>
                                             <input value={buyerData.lastName} onChange={e => setBuyerData({ ...buyerData, lastName: e.target.value })} className="form-control" type="text" id="Input_LastName" name="Input.LastName" placeholder="" />
                                         </div>
                                         <div className="form-group">
