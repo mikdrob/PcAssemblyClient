@@ -22,7 +22,7 @@ const BlockDisplay = (props: { item: IItem }) => (
                     style: "currency",
                     currency: "EUR"
                 }).format(props.item.price)}</p>
-
+                <p className="font-weight-bold">Amount: {props.item.numberOfItemsToAdd}</p>
             </div>
         </div>
     </div>

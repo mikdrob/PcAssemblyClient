@@ -3,5 +3,7 @@ export interface IItem{
     title: string,
     price: number,
     pictureUrl: string,
+    itemsAvailable: number,
+    numberOfItemsToAdd: number;
     itemAddedToCart: boolean
 }

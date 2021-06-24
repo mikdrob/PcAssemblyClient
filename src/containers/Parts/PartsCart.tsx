@@ -19,7 +19,7 @@ const BlockDisplay = (props: { item: IItem }) => (
                     style: "currency",
                     currency: "EUR"
                 }).format(props.item.price)}</p>
-
+                <p className="font-weight-bold">Amount: {props.item.numberOfItemsToAdd}</p>
             </div>
         </div>
     </div>
@@ -33,6 +33,7 @@ const PartsCart = () => {
     const [buyerData, setBuyerData] = useState({ comment: '', email: '', firstName: '', lastName: '' });
 
     let item: IItem;
+    let numberOfItems: number = 1;
     let orderItem: IOrderItem;
 
     let orderId: string;
@@ -46,11 +47,14 @@ const PartsCart = () => {
             orderItem = response.data as IOrderItem;
             let finalOrderBody = {
                 item,
+                numberOfItems,
                 orderItem
             }
             appState.items.forEach(async item => {
+                numberOfItems = item.numberOfItemsToAdd;
                 finalOrderBody = {
                     item,
+                    numberOfItems,
                     orderItem
                 }
                 let responseCart = await ItemsService.postOrder('/cart', finalOrderBody);
