@@ -68,7 +68,7 @@ const PartsCart = () => {
 
         }
         console.log(orderId);
-        setRedirect({redirect: true, id: orderId});
+        setRedirect({ redirect: true, id: orderId });
     }
     return (
         <>
@@ -76,6 +76,9 @@ const PartsCart = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-sm">
+                        <div className="form-group">
+                            <button onClick={() => appState.setItemToCart([])} type="submit" className="btn btn-primary">Clear Cart</button>
+                        </div>
                         {appState.items.map(item =>
                             <BlockDisplay item={item} key={item.id} />
                         )}
