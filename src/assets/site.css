@@ -94,3 +94,11 @@ a.navbar-brand {
     margin: 12px;
     border-radius: 4px;
     }
+
+    .card-img-top {
+      object-fit: cover;
+      transition: transform .2s; /* Animation */
+  }
+  .card-img-top:hover {
+    transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }

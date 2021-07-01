@@ -33,25 +33,25 @@ const PartsIndex = () => {
     }, [])
     return (
         <>
-            <h1 className="m-5">Buy Now</h1>
 
-            <div className="container">
-                <div className="row">
-                    <div className="col-sm">
+            <section className="py-5">
+                <div className="container px-4 px-lg-5 mt-5">
+                    <div className="row gx-2 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
                         {[item.map(item =>
                             <BlockDisplay item={item} key={item.id} />
                         )
                         ]}
                     </div>
                 </div>
-            </div>
+            </section>
+
 
 
             <div className="d-flex justify-content-center">
                 <CustomLoader {...pageStatus} />
             </div>
 
-                            
+
         </>
 
     );
