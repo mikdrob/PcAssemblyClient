@@ -34,6 +34,7 @@ const setOrderId = (orderId: string | null): void => {
             <Route path="/confirmation/:id" component={Confirmation} />
           </Switch>
         </main>
+        
       </div>
     </div>
     </AppContextProvider>
