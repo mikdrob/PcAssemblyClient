@@ -75,20 +75,18 @@ const PartsCart = () => {
             {location.id !== '' ? <Redirect to={"/confirmation/" + location.id} /> : null}
             <div className="container">
                 <div className="row">
-                    <div className="col-sm">
+                    <div className="col-sm p-3">
                         <div className="form-group">
-                            <button onClick={() => appState.setItemToCart([])} type="submit" className="btn btn-primary">Clear Cart</button>
+                            <button onClick={() => appState.setItemToCart([])} type="submit" className="btn btn-outline-dark mt-auto">Clear Cart</button>
                         </div>
                         {appState.items.map(item =>
                             <BlockDisplay item={item} key={item.id} />
                         )}
                     </div>
-                    <div className="col-sm">
+                    <div className="col-sm p-3">
                         <form onSubmit={(e) => placeOrderClicked(e.nativeEvent)}>
                             <div className="row">
-                                <div className="col-md-6">
-                                    <section>
-                                        <hr />
+                                <div className="col-md-6 ">
                                         <div className="form-group">
                                             <label htmlFor="Input_FirstName">First Name</label>
                                             <input value={buyerData.firstName} onChange={e => setBuyerData({ ...buyerData, firstName: e.target.value })} className="form-control" type="text" id="Input_FirstName" name="Input.FirstName" placeholder="" />
@@ -102,9 +100,8 @@ const PartsCart = () => {
                                             <input value={buyerData.email} onChange={e => setBuyerData({ ...buyerData, email: e.target.value })} className="form-control" type="email" id="Input_Email" name="Input.Email" placeholder="user@example.com" />
                                         </div>
                                         <div className="form-group">
-                                            <button onClick={(e) => placeOrderClicked(e.nativeEvent)} type="submit" className="btn btn-primary">Place Order</button>
+                                            <button onClick={(e) => placeOrderClicked(e.nativeEvent)} type="submit" className="btn btn-outline-dark mt-auto">Place Order</button>
                                         </div>
-                                    </section>
                                 </div>
                             </div>
                         </form>
