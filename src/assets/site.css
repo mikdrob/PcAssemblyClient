@@ -143,4 +143,8 @@ a.navbar-brand {
     -webkit-animation-name: slideIn;
     animation-name: slideIn;
   }
+
+  .order-submit {
+    margin-top: 1.3rem;
+  }
   

@@ -24,7 +24,7 @@ const BlockDisplay = (props: { item: IItem }) => {
         <div className="col mb-5">
             <div className="card h-100">
                 <Link to={"/part/" + props.item.id}>
-                <img className="card-img-top" src={props.item.pictureUrl} alt="..." />
+                    <img className="card-img-top" src={props.item.pictureUrl} alt="..." />
                 </Link>
                 <div className="card-body">
                 </div>
@@ -32,10 +32,16 @@ const BlockDisplay = (props: { item: IItem }) => {
                     <div className="card-body p-4">
                         <div className="text-center">
                             <h5 className="fw-bolder">{props.item.title}</h5>
-                            <p className="font-weight-bold">{new Intl.NumberFormat("en-GB", {
+                            <span className="mr-1">
+                                <del>{new Intl.NumberFormat("en-GB", {
+                                    style: "currency",
+                                    currency: "EUR"
+                                }).format(props.item.price*1.2)}</del>
+                            </span>
+                            <span className="font-weight-bold">{new Intl.NumberFormat("en-GB", {
                                 style: "currency",
                                 currency: "EUR"
-                            }).format(props.item.price)}</p>
+                            }).format(props.item.price)}</span>
                         </div>
                     </div>
                     <div className="text-center">

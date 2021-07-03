@@ -1,10 +1,8 @@
 import Axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { ApiBaseUrl } from '../configuration';
-import { IItem } from '../domain/IItem';
 import { IFetchResponse } from '../types/IFetchResponse';
 import { IMessages } from '../types/IMessages';
 import { IOrderItem } from '../types/IOrderItem';
-import { IOrderResponse } from '../types/IOrderResponse';
 
 export abstract class OrderService {
 
@@ -49,5 +47,4 @@ export abstract class OrderService {
 
     }
 
-    
 }

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
-import { setSyntheticTrailingComments } from "typescript";
 import { AppContext } from "../../context/AppContext";
 import { IItem } from "../../domain/IItem";
 import { ItemsService } from "../../services/items-service";
@@ -43,6 +42,7 @@ const PartsCart = () => {
         if (!response.ok) {
             console.log("not okay");
         } else {
+            console.log(orderId + " order id");
             orderId = response.data!.id;
             orderItem = response.data as IOrderItem;
             let finalOrderBody = {
@@ -67,7 +67,6 @@ const PartsCart = () => {
             )
 
         }
-        console.log(orderId);
         setRedirect({ redirect: true, id: orderId });
     }
     return (
@@ -83,10 +82,11 @@ const PartsCart = () => {
                             <BlockDisplay item={item} key={item.id} />
                         )}
                     </div>
-                    <div className="col-sm p-3">
-                        <form onSubmit={(e) => placeOrderClicked(e.nativeEvent)}>
-                            <div className="row">
-                                <div className="col-md-6 ">
+                    <div className="col-sm p-5">
+                        <div className="order-submit">
+                            <form onSubmit={(e) => placeOrderClicked(e.nativeEvent)}>
+                                <div className="row">
+                                    <div className="col-md-6 ">
                                         <div className="form-group">
                                             <label htmlFor="Input_FirstName">First Name</label>
                                             <input value={buyerData.firstName} onChange={e => setBuyerData({ ...buyerData, firstName: e.target.value })} className="form-control" type="text" id="Input_FirstName" name="Input.FirstName" placeholder="" />
@@ -102,9 +102,10 @@ const PartsCart = () => {
                                         <div className="form-group">
                                             <button onClick={(e) => placeOrderClicked(e.nativeEvent)} type="submit" className="btn btn-outline-dark mt-auto">Place Order</button>
                                         </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

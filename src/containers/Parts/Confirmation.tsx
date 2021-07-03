@@ -1,13 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AppContext } from "../../context/AppContext";
 import { IItem } from "../../domain/IItem";
-import { IOrder } from "../../domain/IOrder";
 import { IOrderConfirmed } from "../../domain/IOrderConfirmed";
 import { BaseService } from "../../services/base-service";
-import { ItemsService } from "../../services/items-service";
-import { OrderService } from "../../services/order-service";
-import { IOrderItem } from "../../types/IOrderItem";
+
 import { IRouteId } from "../../types/IRouteId";
 
 const BlockDisplay = (props: { item: IItem }) => (
@@ -40,7 +36,11 @@ const Confirmation = () => {
         let result = await BaseService.get<IOrderConfirmed>('/order_item', id);
         if (result.ok && result.data) {
             setOrder(result.data);
-            console.log(result.data.items);
+
+            let email = await BaseService.get('/order_item/mail', id)
+            if (email.ok) {
+                console.log("works");
+            }
         }
         else {
             console.log("not okay");
@@ -63,24 +63,25 @@ const Confirmation = () => {
                         <BlockDisplay item={item.item} key={item.item.id} />
                     )}
                 </div>
-                <div className="col-sm">
-                    <div className="row">
-                        <div className="col-md-6">
-                            <section>
-                                <hr />
-                                <div className="form-group">
-                                    <label htmlFor="Input_FirstName">First Name</label>
-                                    <p className="font-weight-bold">{order.firstName}</p>
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="Input_LastName">Last Name</label>
-                                    <p className="font-weight-bold">{order.lastName}</p>
-                               </div>
-                                <div className="form-group">
-                                    <label htmlFor="Input_Email">Email</label>
-                                    <p className="font-weight-bold">{order.email}</p>
-                                </div>
-                            </section>
+                <div className="col-sm p-4">
+                    <div className="order-submit">
+                        <div className="row">
+                            <div className="col-md-6">
+                                <section>
+                                    <div className="form-group">
+                                        <label htmlFor="Input_FirstName">First Name</label>
+                                        <p className="font-weight-bold">{order.firstName}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="Input_LastName">Last Name</label>
+                                        <p className="font-weight-bold">{order.lastName}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="Input_Email">Email</label>
+                                        <p className="font-weight-bold">{order.email}</p>
+                                    </div>
+                                </section>
+                            </div>
                         </div>
                     </div>
                 </div>

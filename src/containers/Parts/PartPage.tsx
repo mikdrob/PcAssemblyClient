@@ -1,38 +1,35 @@
 import { useContext, useEffect, useState } from "react";
 import InputSpinner from "react-bootstrap-input-spinner";
 import { Link, useParams } from "react-router-dom";
-import CustomLoader from "../../components/CustomLoader"
+import CustomLoader from "../../components/CustomLoader";
 import { AppContext } from "../../context/AppContext";
 import { IItem } from "../../domain/IItem";
+
 // import { IOrder } from "../../domain/IOrder";
 import { BaseService } from "../../services/base-service";
 import { EPageStatus } from "../../types/EPageStatus";
 import { IRouteId } from "../../types/IRouteId";
-import BlockDisplay from "./AddToCart"
 
 
-
+const defaultNumberOfItems: string = "1";
 
 const PartPage = () => {
     const { id } = useParams() as IRouteId;
     const [item, setItems] = useState({} as IItem);
+    const appState = useContext(AppContext);
+    const [numberOfItems, setNumberOfItems] = useState(defaultNumberOfItems);
     const [pageStatus, setPageStatus] = useState({ pageStatus: EPageStatus.Loading, statusCode: -1 });
 
     const loadData = async () => {
-        console.log(id);
-        let item = await BaseService.get<IItem>('/item', id);
-        if (item.ok && item.data) {
+        let items = await BaseService.get<IItem>('/item', id);
+        if (items.ok && items.data) {
             setPageStatus({ pageStatus: EPageStatus.Ok, statusCode: 0 });
-            setItems(item.data);
+            setItems(items.data);
         }
         else {
-            setPageStatus({ pageStatus: EPageStatus.Error, statusCode: item.statusCode })
+            setPageStatus({ pageStatus: EPageStatus.Error, statusCode: items.statusCode })
         }
     }
-
-    const appState = useContext(AppContext);
-    const [numberOfItems, setNumberOfItems] = useState("1");
-
 
 
     const AddToCart = (itemToAdd: IItem) => {
@@ -44,16 +41,14 @@ const PartPage = () => {
 
     }
 
-
-
-
     useEffect(() => {
         loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
         <>
-            <main className="mt-5 pt-4">
+            <div className="mt-5 pt-4">
                 <div className="container dark-grey-text mt-5">
 
                     <div className="row wow fadeIn">
@@ -79,7 +74,7 @@ const PartPage = () => {
                                         <del>{new Intl.NumberFormat("en-GB", {
                                             style: "currency",
                                             currency: "EUR"
-                                        }).format(item.price + 200)}</del>
+                                        }).format(item.price*1.2)}</del>
                                     </span>
                                     <span>{new Intl.NumberFormat("en-GB", {
                                         style: "currency",
@@ -123,8 +118,10 @@ const PartPage = () => {
 
                     </div>
                 </div>
-            </main>
-
+            </div>
+            <div className="d-flex justify-content-center">
+                <CustomLoader {...pageStatus} />
+            </div>
 
 
         </>

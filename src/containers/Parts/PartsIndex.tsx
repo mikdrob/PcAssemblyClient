@@ -15,7 +15,6 @@ const PartsIndex = () => {
 
     const loadData = async () => {
         let items = await BaseService.getAll<IItem>('/item');
-        // console.log(items.data);
         if (items.ok && items.data) {
             setPageStatus({ pageStatus: EPageStatus.Ok, statusCode: 0 });
             setItems(items.data);
@@ -38,7 +37,7 @@ const PartsIndex = () => {
             <header className="bg-dark py-5">
                 <div className="container px-4 px-lg-5 my-5">
                     <div className="text-center text-white">
-                        <h1 className="display-4 fw-bolder">Dream setups</h1>
+                        <h1 className="display-4 fw-bolder">Dream setup</h1>
                         <p className="lead fw-normal text-white-50 mb-0">assemble your pc today</p>
                     </div>
                 </div>
