@@ -18,4 +18,4 @@ export const initialCartState : ICartState = {
 
 export const AppContext = React.createContext<ICartState>(initialCartState);
 export const AppContextConsumer = AppContext.Consumer;
-export const AppContextProvider = AppContext.Provider
+export const AppContextProvider = AppContext.Provider;

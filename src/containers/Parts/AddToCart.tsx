@@ -3,6 +3,7 @@ import { AppContext } from "../../context/AppContext";
 import { IItem } from "../../domain/IItem";
 import InputSpinner from 'react-bootstrap-input-spinner'
 import { Link } from "react-router-dom";
+import Increment from "../../components/Increment";
 
 const BlockDisplay = (props: { item: IItem }) => {
 
@@ -64,6 +65,9 @@ const BlockDisplay = (props: { item: IItem }) => {
                                     variant={'dark'}
                                     size="sm"
                                 />
+                                <div className="d-flex align-items-center">
+                                <Increment />
+                                </div>
                             </div>
                         </div>
                     </div>

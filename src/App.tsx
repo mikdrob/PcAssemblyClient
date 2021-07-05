@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Map from './containers/Map/Map';
@@ -8,6 +9,7 @@ import PartsCart from './containers/Parts/PartsCart';
 import PartsIndex from './containers/Parts/PartsIndex';
 import { AppContextProvider, initialCartState } from './context/AppContext';
 import { IItem } from './domain/IItem';
+import store from './redux/store';
 
 
 
@@ -24,6 +26,7 @@ function App() {
   return (
     <>
       <div className="App">
+        <Provider store={store}>
         <AppContextProvider value={appState}>
           <div className="sticky-top">
           <Header />
@@ -37,6 +40,7 @@ function App() {
           </Switch>
 
         </AppContextProvider>
+        </Provider>
       </div>
     </>
   );
