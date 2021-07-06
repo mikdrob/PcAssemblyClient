@@ -28,7 +28,8 @@ function Display(props: any) {
 
 const Increment = () => {
     const dispatch = useDispatch();
-    const count = useSelector((store: {count: number})=>store.count);
+    const count = useSelector((store: {counter:{value:number}})=>store.counter.value);
+    console.log(count);
 
 
     // const [counter, setCounter] = useState(1);
@@ -44,8 +45,12 @@ const Increment = () => {
             {/* <ButtonIncrement onClickFunc={incrementCounter} />
             <Display message={counter} />
             <ButtonDecrement onClickFunc={decrementCounter} /> */}
-            <p>the counter - {count}</p>
-            <button onClick={()=>dispatch(actions.addToCounter(count,2))}>+</button>
+            <div className="d-flex">
+            <button onClick={()=>dispatch(actions.substructFromCounter(count))}>-</button>
+            <p>{count}</p>
+            <button onClick={()=>dispatch(actions.addToCounter(count))}>+</button>
+            </div>
+
         </div>
     );
 }

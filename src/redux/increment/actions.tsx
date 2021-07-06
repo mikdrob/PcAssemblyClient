@@ -6,14 +6,14 @@ export enum COUNTER_ACTION_TYPES {
     RESET_VALUE = 'COUNTER:RESET'
 }
 
-export const addToCounter = (value: number, step: number): AddValueAction => ({
+export const addToCounter = (value: number): AddValueAction => ({
     type: COUNTER_ACTION_TYPES.ADD_TO_COUNTER,
-    payload: value+step
+    payload: value
 });
 
-export const substructFromCounter = (value: number, step: number): SubstructValueAction => ({
+export const substructFromCounter = (value: number): SubstructValueAction => ({
     type: COUNTER_ACTION_TYPES.SUBSTRUCT_FROM_COUNTER,
-    payload: value-step
+    payload: value
 });
 
 export const resetCounter = (): ResetValueAction => ({

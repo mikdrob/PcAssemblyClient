@@ -1,5 +1,4 @@
 export type Counter = {
-    step: number;
     value: number;
 }
 // big overall state
