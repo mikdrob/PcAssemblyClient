@@ -1,26 +1,29 @@
 import { useContext, useEffect, useState } from "react";
-import InputSpinner from "react-bootstrap-input-spinner";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import CustomLoader from "../../components/CustomLoader";
+import Increment from "../../components/Increment";
 import { AppContext } from "../../context/AppContext";
 import { IItem } from "../../domain/IItem";
-
-// import { IOrder } from "../../domain/IOrder";
+import * as actions from '../../redux/increment/actions'
 import { BaseService } from "../../services/base-service";
 import { EPageStatus } from "../../types/EPageStatus";
 import { IRouteId } from "../../types/IRouteId";
 
 
-const defaultNumberOfItems: string = "1";
 
 const PartPage = () => {
     const { id } = useParams() as IRouteId;
     const [item, setItems] = useState({} as IItem);
     const appState = useContext(AppContext);
-    const [numberOfItems, setNumberOfItems] = useState(defaultNumberOfItems);
+    
+    const dispatch = useDispatch();
+
+    const numberOfItems = useSelector((store: { counter: { value: number } }) => store.counter.value);
     const [pageStatus, setPageStatus] = useState({ pageStatus: EPageStatus.Loading, statusCode: -1 });
 
     const loadData = async () => {
+        dispatch(actions.resetCounter());
         let items = await BaseService.get<IItem>('/item', id);
         if (items.ok && items.data) {
             setPageStatus({ pageStatus: EPageStatus.Ok, statusCode: 0 });
@@ -33,7 +36,7 @@ const PartPage = () => {
 
 
     const AddToCart = (itemToAdd: IItem) => {
-        itemToAdd.numberOfItemsToAdd = parseInt(numberOfItems);
+        itemToAdd.numberOfItemsToAdd = numberOfItems;
         let cartItems = [...appState.items];
         cartItems = [...cartItems, itemToAdd];
         appState.setItemToCart(cartItems);
@@ -43,7 +46,7 @@ const PartPage = () => {
 
     useEffect(() => {
         loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -74,7 +77,7 @@ const PartPage = () => {
                                         <del>{new Intl.NumberFormat("en-GB", {
                                             style: "currency",
                                             currency: "EUR"
-                                        }).format(item.price*1.2)}</del>
+                                        }).format(item.price * 1.2)}</del>
                                     </span>
                                     <span>{new Intl.NumberFormat("en-GB", {
                                         style: "currency",
@@ -88,29 +91,19 @@ const PartPage = () => {
                                     sint voluptatibus!
                                     Beatae sit assumenda asperiores iure at maxime atque repellendus maiores quia sapiente.</p>
 
-                                    <div className="text-center">
-                        <button type="button" disabled={item.itemAddedToCart} className="btn btn-outline-dark mt-auto" onClick={() => AddToCart(item)} >
-                            Add To Cart
-                        </button>
+                                <div className="text-center">
+                                    <button type="button" disabled={item.itemAddedToCart} className="btn btn-outline-dark mt-auto" onClick={() => AddToCart(item)} >
+                                        Add To Cart
+                                    </button>
 
-                    </div>
-                    <div className="col-sm mt-4" >
-                        <div className="mx-auto w-25" >
-                            <div className="col">
-                                <InputSpinner
-                                    type={'int'}
-                                    precision={0}
-                                    max={100}
-                                    min={1}
-                                    step={1}
-                                    value={parseInt(numberOfItems)}
-                                    onChange={(event: number) => { setNumberOfItems(event.toString()) }}
-                                    variant={'dark'}
-                                    size="sm"
-                                />
-                            </div>
-                        </div>
-                    </div>
+                                </div>
+                                <div className="col-sm mt-4" >
+                                    <div className="mx-auto w-25" >
+                                        <div className="col">
+                                            <Increment />
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
 

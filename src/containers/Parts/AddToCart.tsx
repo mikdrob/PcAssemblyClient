@@ -3,7 +3,6 @@ import { AppContext } from "../../context/AppContext";
 import { IItem } from "../../domain/IItem";
 import InputSpinner from 'react-bootstrap-input-spinner'
 import { Link } from "react-router-dom";
-import Increment from "../../components/Increment";
 
 const BlockDisplay = (props: { item: IItem }) => {
 
@@ -37,7 +36,7 @@ const BlockDisplay = (props: { item: IItem }) => {
                                 <del>{new Intl.NumberFormat("en-GB", {
                                     style: "currency",
                                     currency: "EUR"
-                                }).format(props.item.price*1.2)}</del>
+                                }).format(props.item.price * 1.2)}</del>
                             </span>
                             <span className="font-weight-bold">{new Intl.NumberFormat("en-GB", {
                                 style: "currency",
@@ -51,8 +50,8 @@ const BlockDisplay = (props: { item: IItem }) => {
                         </button>
 
                     </div>
-                    <div className="col-sm mt-4" >
-                        <div className="mx-auto w-50" >
+                    <div className="col-sm mt-5 " >
+                        <div className="mx-auto" style={{maxWidth:"60%"}} >
                             <div className="col">
                                 <InputSpinner
                                     type={'int'}
@@ -65,9 +64,7 @@ const BlockDisplay = (props: { item: IItem }) => {
                                     variant={'dark'}
                                     size="sm"
                                 />
-                                <div className="d-flex align-items-center">
-                                <Increment />
-                                </div>
+                    
                             </div>
                         </div>
                     </div>

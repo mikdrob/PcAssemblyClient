@@ -17,8 +17,13 @@ export type SubstructValueAction = {
     payload: number;
 }
 
+export type SetValueAction = {
+    type: string,
+    payload: number;
+}
+
 export type ResetValueAction = {
     type: string
 }
 
-export type CounterActions = AddValueAction | SubstructValueAction | ResetValueAction;
+export type CounterActions = AddValueAction | SubstructValueAction | SetValueAction | ResetValueAction;
