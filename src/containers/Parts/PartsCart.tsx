@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import { IItem } from "../../domain/IItem";
-import { ItemsService } from "../../services/items-service";
+import { BaseService } from "../../services/base-service";
 import { OrderService } from "../../services/order-service";
 import { IOrderItem } from "../../types/IOrderItem";
 
@@ -43,8 +43,9 @@ const PartsCart = () => {
             console.log("not okay");
         } else {
             console.log(orderId + " order id");
-            orderId = response.data!.id;
             orderItem = response.data as IOrderItem;
+            orderId = orderItem!.id;
+
             let finalOrderBody = {
                 item,
                 numberOfItems,
@@ -57,7 +58,7 @@ const PartsCart = () => {
                     numberOfItems,
                     orderItem
                 }
-                let responseCart = await ItemsService.postOrder('/cart', finalOrderBody);
+                let responseCart = await BaseService.post('/cart', finalOrderBody);
                 if (!responseCart.ok) {
                     console.log("not okay");
                 } else {

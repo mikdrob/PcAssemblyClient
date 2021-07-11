@@ -2,7 +2,6 @@ import Axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { ApiBaseUrl } from '../configuration';
 import { IFetchResponse } from '../types/IFetchResponse';
 import { IMessages } from '../types/IMessages';
-import { IOrderItem } from '../types/IOrderItem';
 
 export abstract class OrderService {
 
@@ -23,13 +22,13 @@ export abstract class OrderService {
         return config;
     }
 
-    static async postOrderDetails(apiEndpoint: string, orderDetailsData: 
+    static async postOrderDetails<TEntity>(apiEndpoint: string, orderDetailsData: 
         {firstName: string, lastName: string, email: string}
-        ): Promise<IFetchResponse<IOrderItem>> {
+        ): Promise<IFetchResponse<TEntity>> {
 
         let orderDataJson = JSON.stringify(orderDetailsData);
         try {
-            let response = await this.axios.post<IOrderItem>(apiEndpoint, orderDataJson);
+            let response = await this.axios.post<TEntity>(apiEndpoint, orderDataJson);
             return {
                 ok: response.status <= 299,
                 statusCode: response.status,

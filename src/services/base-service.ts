@@ -13,7 +13,7 @@ export abstract class BaseService {
     });
 
     protected static getAxiosConfiguration(token?: string): AxiosRequestConfig | undefined {
-        if(!token) return undefined;
+        if (!token) return undefined;
         const config: AxiosRequestConfig = {
             headers: {
                 Authorization: 'Bearer ' + token
@@ -23,40 +23,61 @@ export abstract class BaseService {
     }
 
     static async getAll<TEntity>(apiEndpoint: string, token?: string): Promise<IFetchResponse<TEntity[]>> {
-        try{
-        let response = await this.axios.get<TEntity[]>(apiEndpoint, BaseService.getAxiosConfiguration(token));
-        return {
-            ok: response.status <=299,
-            statusCode: response.status,
-            data: response.data,
-        };
-    }
-    catch (err){
-        let error = err as AxiosError;
-        return {
-            ok: false,
-            statusCode: error.response?.status ?? 500,
-            messages: (error.response?.data as IMessages).messages
+        try {
+            let response = await this.axios.get<TEntity[]>(apiEndpoint, BaseService.getAxiosConfiguration(token));
+            return {
+                ok: response.status <= 299,
+                statusCode: response.status,
+                data: response.data,
+            };
         }
-    }
+        catch (err) {
+            let error = err as AxiosError;
+            return {
+                ok: false,
+                statusCode: error.response?.status ?? 500,
+                messages: (error.response?.data as IMessages).messages
+            }
+        }
     }
     static async get<TEntity>(apiEndpoint: string, id: string, token?: string): Promise<IFetchResponse<TEntity>> {
         apiEndpoint = apiEndpoint + '/' + id;
-        try{
-        let response = await this.axios.get<TEntity>(apiEndpoint, BaseService.getAxiosConfiguration(token));
-        return {
-            ok: response.status <=299,
-            statusCode: response.status,
-            data: response.data,
-        };
-    }
-    catch (err){
-        let error = err as AxiosError;
-        return {
-            ok: false,
-            statusCode: error.response?.status ?? 500,
-            messages: (error.response?.data as IMessages).messages
+        try {
+            let response = await this.axios.get<TEntity>(apiEndpoint, BaseService.getAxiosConfiguration(token));
+            return {
+                ok: response.status <= 299,
+                statusCode: response.status,
+                data: response.data,
+            };
+        }
+        catch (err) {
+            let error = err as AxiosError;
+            return {
+                ok: false,
+                statusCode: error.response?.status ?? 500,
+                messages: (error.response?.data as IMessages).messages
+            }
         }
     }
+
+    static async post<TEntity>(apiEndpoint: string, body: TEntity): Promise<IFetchResponse<TEntity>> {
+        let bodyDataJson = JSON.stringify(body);
+        try {
+            let response = await this.axios.post<TEntity>(apiEndpoint, bodyDataJson);
+            return {
+                ok: response.status <= 299,
+                statusCode: response.status,
+                data: response.data
+            };    
+        }
+        catch (err) {
+            let error = err as AxiosError;
+            return {
+                ok: false,
+                statusCode: error.response?.status ?? 500,
+                messages: (error.response?.data as IMessages).messages,
+            }
+        }
+
     }
 }
