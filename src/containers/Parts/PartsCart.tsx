@@ -30,8 +30,6 @@ const PartsCart = () => {
     const [location, setRedirect] = useState({ redirect: false, id: '' });
     const appState = useContext(AppContext);
     const [buyerData, setBuyerData] = useState({ comment: '', email: '', firstName: '', lastName: '' });
-
-    let item: IItem;
     let numberOfItems: number = 1;
     let orderItem: IOrderItem;
 
@@ -46,11 +44,7 @@ const PartsCart = () => {
             orderItem = response.data as IOrderItem;
             orderId = orderItem!.id;
 
-            let finalOrderBody = {
-                item,
-                numberOfItems,
-                orderItem
-            }
+            let finalOrderBody;
             appState.items.forEach(async item => {
                 numberOfItems = item.numberOfItemsToAdd;
                 finalOrderBody = {
@@ -58,11 +52,12 @@ const PartsCart = () => {
                     numberOfItems,
                     orderItem
                 }
+
                 let responseCart = await BaseService.post('/cart', finalOrderBody);
                 if (!responseCart.ok) {
                     console.log("not okay");
                 } else {
-                    console.log("ok");
+                    appState.setItemToCart([]);
                 }
             }
             )
@@ -73,43 +68,55 @@ const PartsCart = () => {
     return (
         <>
             {location.id !== '' ? <Redirect to={"/confirmation/" + location.id} /> : null}
-            <div className="container">
-                <div className="row">
-                    <div className="col-sm p-3">
-                        <div className="form-group">
-                            <button onClick={() => appState.setItemToCart([])} type="submit" className="btn btn-outline-dark mt-auto">Clear Cart</button>
+            {appState.items.length !== 0 ?
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm p-3">
+                            <div className="form-group">
+                                <button onClick={() => appState.setItemToCart([])} type="submit" className="btn btn-outline-dark mt-auto">Clear Cart</button>
+                            </div>
+                            {appState.items.map(item =>
+                                <BlockDisplay item={item} key={item.id} />
+                            )}
                         </div>
-                        {appState.items.map(item =>
-                            <BlockDisplay item={item} key={item.id} />
-                        )}
-                    </div>
-                    <div className="col-sm p-5">
-                        <div className="order-submit">
-                            <form onSubmit={(e) => placeOrderClicked(e.nativeEvent)}>
-                                <div className="row">
-                                    <div className="col-md-6 ">
-                                        <div className="form-group">
-                                            <label htmlFor="Input_FirstName">First Name</label>
-                                            <input value={buyerData.firstName} onChange={e => setBuyerData({ ...buyerData, firstName: e.target.value })} className="form-control" type="text" id="Input_FirstName" name="Input.FirstName" placeholder="" />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="Input_LastName">Last Name</label>
-                                            <input value={buyerData.lastName} onChange={e => setBuyerData({ ...buyerData, lastName: e.target.value })} className="form-control" type="text" id="Input_LastName" name="Input.LastName" placeholder="" />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="Input_Email">Email</label>
-                                            <input value={buyerData.email} onChange={e => setBuyerData({ ...buyerData, email: e.target.value })} className="form-control" type="email" id="Input_Email" name="Input.Email" placeholder="user@example.com" />
-                                        </div>
-                                        <div className="form-group">
-                                            <button onClick={(e) => placeOrderClicked(e.nativeEvent)} type="submit" className="btn btn-outline-dark mt-auto">Place Order</button>
+                        <div className="col-sm p-5">
+                            <div className="order-submit">
+                                <form onSubmit={(e) => placeOrderClicked(e.nativeEvent)}>
+                                    <div className="row">
+                                        <div className="col-md-6 ">
+                                            <div className="form-group">
+                                                <label htmlFor="Input_FirstName">First Name</label>
+                                                <input value={buyerData.firstName} onChange={e => setBuyerData({ ...buyerData, firstName: e.target.value })} className="form-control" type="text" id="Input_FirstName" name="Input.FirstName" placeholder="" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="Input_LastName">Last Name</label>
+                                                <input value={buyerData.lastName} onChange={e => setBuyerData({ ...buyerData, lastName: e.target.value })} className="form-control" type="text" id="Input_LastName" name="Input.LastName" placeholder="" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="Input_Email">Email</label>
+                                                <input value={buyerData.email} onChange={e => setBuyerData({ ...buyerData, email: e.target.value })} className="form-control" type="email" id="Input_Email" name="Input.Email" placeholder="user@example.com" />
+                                            </div>
+                                            <div className="form-group">
+                                                <button onClick={(e) => placeOrderClicked(e.nativeEvent)} type="submit" className="btn btn-outline-dark mt-auto">Place Order</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                : <div className="container px-4 px-lg-5">
+                    <div className="row">
+                        <div className="col-sm p-5">
+                            <div className="alert alert-primary" role="alert">
+                                Cart is Empty!
+                            </div>
+                        </div>
+                        <div className="col-sm p-5">
+                        </div>
+                    </div>
+                </div>}
         </>
     )
 }
