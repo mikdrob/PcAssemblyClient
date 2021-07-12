@@ -99,9 +99,7 @@ const PartPage = () => {
                                 </div>
                                 <div className="col-sm mt-4" >
                                     <div className="mx-auto w-25" >
-                                        <div className="col">
                                             <Increment />
-                                        </div>
                                     </div>
                                 </div>
 

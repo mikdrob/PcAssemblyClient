@@ -1,12 +1,37 @@
 import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
-import { AppContext } from "../../context/AppContext";
+import { AppContext, ICartState } from "../../context/AppContext";
 import { IItem } from "../../domain/IItem";
 import { BaseService } from "../../services/base-service";
 import { OrderService } from "../../services/order-service";
 import { IOrderItem } from "../../types/IOrderItem";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const BlockDisplay = (props: { item: IItem }) => (
+const RemoveItem = (id:string, appState:ICartState) =>{
+    
+    confirmAlert({
+        title: 'Confirm to remove the item',
+        message: 'Are you sure you want to remove this item?',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => {
+                appState.items = appState.items.filter(function( item ) {
+                    return item.id !== id;
+                });
+                appState.setItemToCart(appState.items);
+            }
+          },
+          {
+            label: 'No',
+            onClick: () => alert('Click No')
+          }
+        ]
+      });
+}
+
+const BlockDisplay = (props: { item: IItem, appState:ICartState }) => (
     <div className="card mt-5">
         <div className="card-horizontal">
             <div className="col-md-4 px-0">
@@ -20,6 +45,7 @@ const BlockDisplay = (props: { item: IItem }) => (
                 }).format(props.item.price)}</p>
                 <p className="font-weight-bold">Amount: {props.item.numberOfItemsToAdd}</p>
             </div>
+            <button type="button" className="btn-close" aria-label="Close" onClick={()=>RemoveItem(props.item.id, props.appState)}></button>
         </div>
     </div>
 );
@@ -76,7 +102,7 @@ const PartsCart = () => {
                                 <button onClick={() => appState.setItemToCart([])} type="submit" className="btn btn-outline-dark mt-auto">Clear Cart</button>
                             </div>
                             {appState.items.map(item =>
-                                <BlockDisplay item={item} key={item.id} />
+                                <BlockDisplay item={item} key={item.id} appState={appState}/>
                             )}
                         </div>
                         <div className="col-sm p-5">

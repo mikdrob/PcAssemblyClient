@@ -7,7 +7,7 @@ const Increment = () => {
 
     return (
         <div>
-                <div className="d-flex input-group mb-3">
+                <div className="d-flex input-group">
                     <div className="input-group-prepend">
                         <button className="btn btn-dark" type="button" disabled={count===1 ? true : false} onClick={() => dispatch(actions.substructFromCounter(count))}>-</button>
                     </div>
