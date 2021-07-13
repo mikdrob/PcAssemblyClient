@@ -8,30 +8,30 @@ import { IOrderItem } from "../../types/IOrderItem";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const RemoveItem = (id:string, appState:ICartState) =>{
-    
+const RemoveItem = (id: string, appState: ICartState) => {
+
     confirmAlert({
         title: 'Confirm to remove the item',
         message: 'Are you sure you want to remove this item?',
         buttons: [
-          {
-            label: 'Yes',
-            onClick: () => {
-                appState.items = appState.items.filter(function( item ) {
-                    return item.id !== id;
-                });
-                appState.setItemToCart(appState.items);
+            {
+                label: 'Yes',
+                onClick: () => {
+                    appState.items = appState.items.filter(function (item) {
+                        return item.id !== id;
+                    });
+                    appState.setItemToCart(appState.items);
+                }
+            },
+            {
+                label: 'No',
+                onClick: () => alert('Click No')
             }
-          },
-          {
-            label: 'No',
-            onClick: () => alert('Click No')
-          }
         ]
-      });
+    });
 }
 
-const BlockDisplay = (props: { item: IItem, appState:ICartState }) => (
+const BlockDisplay = (props: { item: IItem, appState: ICartState }) => (
     <div className="card mt-5">
         <div className="card-horizontal">
             <div className="col-md-4 px-0">
@@ -45,7 +45,7 @@ const BlockDisplay = (props: { item: IItem, appState:ICartState }) => (
                 }).format(props.item.price)}</p>
                 <p className="font-weight-bold">Amount: {props.item.numberOfItemsToAdd}</p>
             </div>
-            <button type="button" className="btn-close" aria-label="Close" onClick={()=>RemoveItem(props.item.id, props.appState)}></button>
+            <button type="button" className="btn-close" aria-label="Close" onClick={() => RemoveItem(props.item.id, props.appState)}></button>
         </div>
     </div>
 );
@@ -96,20 +96,22 @@ const PartsCart = () => {
             {location.id !== '' ? <Redirect to={"/confirmation/" + location.id} /> : null}
             {appState.items.length !== 0 ?
                 <div className="container">
+                    <div className="note">
+                        <p>Order Confirmation.</p>
+                    </div>
                     <div className="row">
                         <div className="col-sm p-3">
+                            {appState.items.map(item =>
+                                <BlockDisplay item={item} key={item.id} appState={appState} />
+                            )}
                             <div className="form-group">
                                 <button onClick={() => appState.setItemToCart([])} type="submit" className="btn btn-outline-dark mt-auto">Clear Cart</button>
                             </div>
-                            {appState.items.map(item =>
-                                <BlockDisplay item={item} key={item.id} appState={appState}/>
-                            )}
                         </div>
                         <div className="col-sm p-5">
-                            <div className="order-submit">
-                                <form onSubmit={(e) => placeOrderClicked(e.nativeEvent)}>
-                                    <div className="row">
-                                        <div className="col-md-6 ">
+                            <div className="order-submit container register-form ml-5">
+                                <form className="ml-5" onSubmit={(e) => placeOrderClicked(e.nativeEvent)}>
+                                        <div className="form-content">
                                             <div className="form-group">
                                                 <label htmlFor="Input_FirstName">First Name</label>
                                                 <input value={buyerData.firstName} onChange={e => setBuyerData({ ...buyerData, firstName: e.target.value })} className="form-control" type="text" id="Input_FirstName" name="Input.FirstName" placeholder="" />
@@ -126,10 +128,34 @@ const PartsCart = () => {
                                                 <button onClick={(e) => placeOrderClicked(e.nativeEvent)} type="submit" className="btn btn-outline-dark mt-auto">Place Order</button>
                                             </div>
                                         </div>
-                                    </div>
                                 </form>
                             </div>
                         </div>
+                        {/* <div className="container register-form col-sm p-5">
+                            <div className="form">
+                                <div className="note">
+                                    <p>Order Confirmation.</p>
+                                </div>
+
+                                <div className="form-content">
+                                        <div className="col-md-6">
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="Your Name *" value="" />
+                                            </div>
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="Phone Number *" value="" />
+                                            </div>
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="Your Password *" value="" />
+                                            </div>
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="Confirm Password *" value="" />
+                                            </div>
+                                        </div>
+                                    <button type="button" className="btnSubmit">Submit</button>
+                                </div>
+                            </div>
+                        </div> */}
                     </div>
                 </div>
                 : <div className="container px-4 px-lg-5">
