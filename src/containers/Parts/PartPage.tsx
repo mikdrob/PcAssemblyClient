@@ -9,14 +9,14 @@ import * as actions from '../../redux/increment/actions'
 import { BaseService } from "../../services/base-service";
 import { EPageStatus } from "../../types/EPageStatus";
 import { IRouteId } from "../../types/IRouteId";
-
+import { addItem } from "../../assets/FlyToCart";
 
 
 const PartPage = () => {
     const { id } = useParams() as IRouteId;
     const [item, setItems] = useState({} as IItem);
     const appState = useContext(AppContext);
-    
+
     const dispatch = useDispatch();
 
     const numberOfItems = useSelector((store: { counter: { value: number } }) => store.counter.value);
@@ -44,10 +44,13 @@ const PartPage = () => {
 
     }
 
+   
+
     useEffect(() => {
         loadData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
 
     return (
         <>
@@ -58,7 +61,7 @@ const PartPage = () => {
 
                         <div className="col-md-6 mb-4">
 
-                            <img src={item.pictureUrl} className="img-fluid" alt="" />
+                            <img src={item.pictureUrl} className="img-fluid" id="item-img" alt="" />
 
                         </div>
 
@@ -92,14 +95,14 @@ const PartPage = () => {
                                     Beatae sit assumenda asperiores iure at maxime atque repellendus maiores quia sapiente.</p>
 
                                 <div className="text-center">
-                                    <button type="button" disabled={item.itemAddedToCart} className="btn btn-outline-dark mt-auto" onClick={() => AddToCart(item)} >
+                                    <button type="button" disabled={item.itemAddedToCart} className="btn btn-outline-dark mt-auto" onClick={(e) => {addItem(e); AddToCart(item)}} >
                                         Add To Cart
                                     </button>
 
                                 </div>
                                 <div className="col-sm mt-4" >
                                     <div className="mx-auto w-25" >
-                                            <Increment />
+                                        <Increment />
                                     </div>
                                 </div>
 

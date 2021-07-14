@@ -3,6 +3,7 @@ import { AppContext } from "../../context/AppContext";
 import { IItem } from "../../domain/IItem";
 import InputSpinner from 'react-bootstrap-input-spinner'
 import { Link } from "react-router-dom";
+import { addItem } from "../../assets/FlyToCart";
 
 const BlockDisplay = (props: { item: IItem }) => {
 
@@ -20,11 +21,13 @@ const BlockDisplay = (props: { item: IItem }) => {
 
     }
 
+    
+
     return (
-        <div className="col mb-5">
+        <div className="col">
             <div className="card h-100">
                 <Link to={"/part/" + props.item.id}>
-                    <img className="card-img-top" src={props.item.pictureUrl} alt="..." />
+                    <img className="card-img-top" id="item-img" src={props.item.pictureUrl} alt="..." />
                 </Link>
                 <div className="card-body">
                 </div>
@@ -45,10 +48,9 @@ const BlockDisplay = (props: { item: IItem }) => {
                         </div>
                     </div>
                     <div className="text-center">
-                        <button type="button" disabled={props.item.itemAddedToCart} className="btn btn-outline-dark mt-auto" onClick={() => AddToCart(props.item)} >
+                        <button type="button" disabled={props.item.itemAddedToCart} className="btn btn-outline-dark mt-auto" onClick={(e) => {addItem(e);AddToCart(props.item);}} >
                             Add To Cart
                         </button>
-
                     </div>
                     <div className="col-sm mt-5 " >
                         <div className="mx-auto" style={{maxWidth:"60%"}} >

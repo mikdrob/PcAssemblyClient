@@ -97,18 +97,18 @@ const PartsCart = () => {
             {appState.items.length !== 0 ?
                 <div className="container">
                     <div className="note">
-                        <p>Order Confirmation.</p>
+                        <p>Order Confirmation</p>
                     </div>
-                    <div className="row">
-                        <div className="col-sm p-3">
+                    <div className="d-flex justify-content-between">
+                        <div className="col-sm">
                             {appState.items.map(item =>
                                 <BlockDisplay item={item} key={item.id} appState={appState} />
                             )}
-                            <div className="form-group">
+                            <div className="form-group mt-3">
                                 <button onClick={() => appState.setItemToCart([])} type="submit" className="btn btn-outline-dark mt-auto">Clear Cart</button>
                             </div>
                         </div>
-                        <div className="col-sm p-5">
+                        <div className="col-sm m-5">
                             <div className="order-submit container register-form ml-5">
                                 <form className="ml-5" onSubmit={(e) => placeOrderClicked(e.nativeEvent)}>
                                         <div className="form-content">
@@ -125,37 +125,12 @@ const PartsCart = () => {
                                                 <input value={buyerData.email} onChange={e => setBuyerData({ ...buyerData, email: e.target.value })} className="form-control" type="email" id="Input_Email" name="Input.Email" placeholder="user@example.com" />
                                             </div>
                                             <div className="form-group">
-                                                <button onClick={(e) => placeOrderClicked(e.nativeEvent)} type="submit" className="btn btn-outline-dark mt-auto">Place Order</button>
+                                                <button onClick={(e) => placeOrderClicked(e.nativeEvent)} type="submit" className="btn btn-primary mt-auto">Place Order</button>
                                             </div>
                                         </div>
                                 </form>
                             </div>
                         </div>
-                        {/* <div className="container register-form col-sm p-5">
-                            <div className="form">
-                                <div className="note">
-                                    <p>Order Confirmation.</p>
-                                </div>
-
-                                <div className="form-content">
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="Your Name *" value="" />
-                                            </div>
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="Phone Number *" value="" />
-                                            </div>
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="Your Password *" value="" />
-                                            </div>
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="Confirm Password *" value="" />
-                                            </div>
-                                        </div>
-                                    <button type="button" className="btnSubmit">Submit</button>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
                 </div>
                 : <div className="container px-4 px-lg-5">

@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
+import logo from "../assets/ShoppingCartLogo.png"
+
 
 const Header = () => {
     const appState = useContext(AppContext);
@@ -24,9 +26,9 @@ const Header = () => {
                             </div>
                         </li>
                     </ul>
-                    <NavLink className="btn btn-outline-dark" to="/cart">
+                    <NavLink className="btn btn-outline-dark" to="/cart" id="cart-button">
                         <i className="bi-cart-fill me-1"></i>
-                        Cart
+                        <img src={logo} style={{height: "1.5rem"}} alt="Cart"></img>
                         <span className="badge bg-dark text-white ms-1 rounded-pill">{appState.items.length}</span>
                     </NavLink>
                 </div>
