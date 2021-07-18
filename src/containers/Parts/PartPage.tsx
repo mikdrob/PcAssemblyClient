@@ -44,7 +44,7 @@ const PartPage = () => {
 
     }
 
-   
+
 
     useEffect(() => {
         loadData();
@@ -82,6 +82,7 @@ const PartPage = () => {
                                             currency: "EUR"
                                         }).format(item.price * 1.2)}</del>
                                     </span>
+                                    <br></br>
                                     <span>{new Intl.NumberFormat("en-GB", {
                                         style: "currency",
                                         currency: "EUR"
@@ -95,7 +96,7 @@ const PartPage = () => {
                                     Beatae sit assumenda asperiores iure at maxime atque repellendus maiores quia sapiente.</p>
 
                                 <div className="text-center">
-                                    <button type="button" disabled={item.itemAddedToCart} className="btn btn-outline-dark mt-auto" onClick={(e) => {addItem(e); AddToCart(item)}} >
+                                    <button type="button" disabled={item.itemAddedToCart} className="btn btn-outline-dark mt-auto" onClick={(e) => { addItem(e); AddToCart(item) }} >
                                         Add To Cart
                                     </button>
 

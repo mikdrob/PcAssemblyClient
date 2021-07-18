@@ -5,31 +5,9 @@ import { IItem } from "../../domain/IItem";
 import { BaseService } from "../../services/base-service";
 import { OrderService } from "../../services/order-service";
 import { IOrderItem } from "../../types/IOrderItem";
-import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { ClearCart, RemoveItem } from "./Alerts/ShoppingCartAlerts";
 
-const RemoveItem = (id: string, appState: ICartState) => {
-
-    confirmAlert({
-        title: 'Confirm to remove the item',
-        message: 'Are you sure you want to remove this item?',
-        buttons: [
-            {
-                label: 'Yes',
-                onClick: () => {
-                    appState.items = appState.items.filter(function (item) {
-                        return item.id !== id;
-                    });
-                    appState.setItemToCart(appState.items);
-                }
-            },
-            {
-                label: 'No',
-                onClick: () => alert('Click No')
-            }
-        ]
-    });
-}
 
 const BlockDisplay = (props: { item: IItem, appState: ICartState }) => (
     <div className="card mt-5">
@@ -45,7 +23,7 @@ const BlockDisplay = (props: { item: IItem, appState: ICartState }) => (
                 }).format(props.item.price)}</p>
                 <p className="font-weight-bold">Amount: {props.item.numberOfItemsToAdd}</p>
             </div>
-            <button type="button" className="btn-close" aria-label="Close" onClick={() => RemoveItem(props.item.id, props.appState)}></button>
+            <button type="button" className="btn-close" id="button-close" aria-label="Close" onClick={() => RemoveItem(props.item.id, props.appState)}></button>
         </div>
     </div>
 );
@@ -105,29 +83,29 @@ const PartsCart = () => {
                                 <BlockDisplay item={item} key={item.id} appState={appState} />
                             )}
                             <div className="form-group mt-3">
-                                <button onClick={() => appState.setItemToCart([])} type="submit" className="btn btn-outline-dark mt-auto">Clear Cart</button>
+                                <button onClick={() => ClearCart(appState)} type="submit" id="clear-cart-button" className="btn btn-outline-dark mt-auto">Clear Cart</button>
                             </div>
                         </div>
                         <div className="col-sm m-5">
                             <div className="order-submit container register-form ml-5">
                                 <form className="ml-5" onSubmit={(e) => placeOrderClicked(e.nativeEvent)}>
-                                        <div className="form-content">
-                                            <div className="form-group">
-                                                <label htmlFor="Input_FirstName">First Name</label>
-                                                <input value={buyerData.firstName} onChange={e => setBuyerData({ ...buyerData, firstName: e.target.value })} className="form-control" type="text" id="Input_FirstName" name="Input.FirstName" placeholder="" />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="Input_LastName">Last Name</label>
-                                                <input value={buyerData.lastName} onChange={e => setBuyerData({ ...buyerData, lastName: e.target.value })} className="form-control" type="text" id="Input_LastName" name="Input.LastName" placeholder="" />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="Input_Email">Email</label>
-                                                <input value={buyerData.email} onChange={e => setBuyerData({ ...buyerData, email: e.target.value })} className="form-control" type="email" id="Input_Email" name="Input.Email" placeholder="user@example.com" />
-                                            </div>
-                                            <div className="form-group">
-                                                <button onClick={(e) => placeOrderClicked(e.nativeEvent)} type="submit" className="btn btn-primary mt-auto">Place Order</button>
-                                            </div>
+                                    <div className="form-content">
+                                        <div className="form-group">
+                                            <label htmlFor="Input_FirstName">First Name</label>
+                                            <input value={buyerData.firstName} onChange={e => setBuyerData({ ...buyerData, firstName: e.target.value })} className="form-control" type="text" id="Input_FirstName" name="Input.FirstName" placeholder="" />
                                         </div>
+                                        <div className="form-group">
+                                            <label htmlFor="Input_LastName">Last Name</label>
+                                            <input value={buyerData.lastName} onChange={e => setBuyerData({ ...buyerData, lastName: e.target.value })} className="form-control" type="text" id="Input_LastName" name="Input.LastName" placeholder="" />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="Input_Email">Email</label>
+                                            <input value={buyerData.email} onChange={e => setBuyerData({ ...buyerData, email: e.target.value })} className="form-control" type="email" id="Input_Email" name="Input.Email" placeholder="user@example.com" />
+                                        </div>
+                                        <div className="form-group">
+                                            <button onClick={(e) => placeOrderClicked(e.nativeEvent)} type="submit" className="btn btn-primary mt-auto">Place Order</button>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>

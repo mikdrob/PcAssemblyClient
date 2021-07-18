@@ -41,6 +41,7 @@ const BlockDisplay = (props: { item: IItem }) => {
                                     currency: "EUR"
                                 }).format(props.item.price * 1.2)}</del>
                             </span>
+                            <br></br>
                             <span className="font-weight-bold">{new Intl.NumberFormat("en-GB", {
                                 style: "currency",
                                 currency: "EUR"
